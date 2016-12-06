@@ -10,9 +10,14 @@ public class News {
 
     private String title;
     private String url;
-    private Date dateTime;
+    private String dateTime;
 
-    public News(String title, Date dateTime, String url) {
+    public News(String title, String url) {
+        this.title = title;
+        this.url = url;
+    }
+
+    public News(String title, String dateTime, String url) {
         this.title = title;
         this.dateTime = dateTime;
         this.url = url;
@@ -22,7 +27,7 @@ public class News {
         return title;
     }
 
-    public Date getDateTime() {
+    public String getDateTime() {
         return dateTime;
     }
 

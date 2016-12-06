@@ -1,52 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="?android:attr/listPreferredItemHeight"
-    android:orientation="horizontal"
-    android:padding="16dp">
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:orientation="horizontal"
+              android:padding="16dp">
 
     <TextView
-        android:id="@+id/newsTitleId"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical"
-        android:layout_weight="3"
-        android:gravity="left"
-        android:paddingBottom="16dp"
-        android:paddingLeft="16dp"
-        tools:fontFamily="sans-serif-medium"
-        tools:text="Placeholder news title"
-        tools:textAppearance="@style/TextAppearance.AppCompat.Medium"
-        tools:textColor="@android:color/black" />
+            android:id="@+id/newsTitleId"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:textStyle="bold"
+            android:textAllCaps="true"
+            android:layout_weight="2"
+            android:paddingBottom="16dp"
+            android:paddingLeft="16dp"
+            tools:fontFamily="sans-serif-medium"
+            tools:text="Placeholder news title will  go as far as desired"
+            tools:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            tools:textColor="@android:color/black"/>
 
     <LinearLayout
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:orientation="vertical">
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
 
         <TextView
-            android:id="@+id/dateId"
-            android:layout_width="wrap_content"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:paddingBottom="16dp"
-            android:paddingLeft="16dp"
-            android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
-            tools:text="2016-09-26T"
-            tools:textColor="@android:color/black" />
+                android:id="@+id/dateId"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:paddingBottom="16dp"
+                android:paddingLeft="16dp"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
+                tools:text="2016-09-26"
+                tools:textColor="@android:color/black"/>
 
         <TextView
-            android:id="@+id/timeId"
-            android:layout_width="wrap_content"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:paddingBottom="16dp"
-            android:paddingLeft="16dp"
-            android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
-            tools:text="15:57:34Z"
-            tools:textColor="@android:color/black" />
+                android:id="@+id/timeId"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:paddingBottom="16dp"
+                android:paddingLeft="16dp"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
+                tools:text="15:57:34"
+                tools:textColor="@android:color/black"/>
 
     </LinearLayout>
 

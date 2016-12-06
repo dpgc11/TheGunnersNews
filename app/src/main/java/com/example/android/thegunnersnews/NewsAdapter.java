@@ -12,7 +12,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.zip.Inflater;
 
 /**
  * Created by Yogesh on 05-12-2016.
@@ -20,8 +19,10 @@ import java.util.zip.Inflater;
 
 public class NewsAdapter extends ArrayAdapter<News> {
 
+    private static String LOG_TAG = NewsAdapter.class.getSimpleName();
+
     public NewsAdapter(Context context, ArrayList<News> news) {
-        super(context, 0 , news);
+        super(context, 0, news);
     }
 
     @NonNull
@@ -39,18 +40,42 @@ public class NewsAdapter extends ArrayAdapter<News> {
         TextView date = (TextView) rootView.findViewById(R.id.dateId);
         TextView time = (TextView) rootView.findViewById(R.id.timeId);
 
-        Date dT = currentNews.getDateTime();
+        String dT = currentNews.getDateTime();
         String title = currentNews.getTitle();
+        String titleToDisplay = "";
 
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'");
-        SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm:ss'Z'");
+        if (title.contains(":")) {
+            int indexOfColon = title.indexOf(':');
+            titleToDisplay = title.substring(indexOfColon + 1, title.length());
+        } else {
+            titleToDisplay = title;
+        }
 
-        String dateToDisplay = dateFormat.format(dT);
-        String timeToDisplay = timeFormat.format(dT);
 
-        newsTitle.setText(title);
-        date.setText(dateToDisplay);
-        time.setText(timeToDisplay);
+
+
+        SimpleDateFormat dFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm:ss");
+
+//        Date d3 = null;
+//        String date1 = "";
+//        String date2 = "";
+//        try {
+//            d3 = dFormat.parse(dT);
+//            date1 = dateFormat.format(d3);
+//            date2 = timeFormat.format(d3);
+//        } catch (ParseException e) {
+//            e.printStackTrace();
+//        }
+
+
+//        String dateToDisplay = dateFormat.format(dT);
+//        String timeToDisplay = timeFormat.format(dT);
+
+        newsTitle.setText(titleToDisplay);
+//        date.setText(date1);
+//        time.setText(date2);
 
         return rootView;
     }
