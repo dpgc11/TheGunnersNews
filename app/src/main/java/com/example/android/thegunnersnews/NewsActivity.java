@@ -11,7 +11,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.Toast;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,8 +22,9 @@ public class NewsActivity extends AppCompatActivity implements LoaderManager.Loa
     private static final String LOG_TAG = NewsActivity.class.getSimpleName();
 
     private static final String GUARDIAN_REQUEST_URL = "https://content.guardianapis.com/search?q=football/arsenal&section=football&tag=football/arsenal&order-by=newest&show-fields=thumbnail&api-key=b29db22e-a97f-4c16-abc6-ca85fec2cde0";
-
+    TextView emptyTextView;
     private NewsAdapter adapter;
+    private ProgressBar progressBar;
 
 
     @Override
@@ -32,6 +34,11 @@ public class NewsActivity extends AppCompatActivity implements LoaderManager.Loa
 
         // Find a reference to the {@link ListView} in the layout
         ListView newsListView = (ListView) findViewById(R.id.list);
+
+        progressBar = (ProgressBar) findViewById(R.id.progressBar);
+
+        emptyTextView = (TextView) findViewById(R.id.emptyTextView);
+        newsListView.setEmptyView(emptyTextView);
 
         // Create a new {@link ArrayAdapter} of earthquakes
         adapter = new NewsAdapter(this, new ArrayList<News>());
@@ -58,7 +65,8 @@ public class NewsActivity extends AppCompatActivity implements LoaderManager.Loa
         if (networkInfo != null && networkInfo.isConnected()) {
             getLoaderManager().initLoader(1, null, this);
         } else {
-            Toast.makeText(this, "No internet connection", Toast.LENGTH_LONG).show();
+            progressBar.setVisibility(View.GONE);
+            emptyTextView.setText(R.string.no_internet_connection);
         }
 
     }
@@ -78,6 +86,9 @@ public class NewsActivity extends AppCompatActivity implements LoaderManager.Loa
 
         if (news != null && !news.isEmpty())
             adapter.addAll(news);
+
+        emptyTextView.setVisibility(View.GONE);
+        progressBar.setVisibility(View.GONE);
     }
 
     @Override
