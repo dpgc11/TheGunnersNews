@@ -15,10 +15,7 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.charset.Charset;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -101,7 +98,7 @@ public final class QueryUtils {
             return null;
         }
 
-        List<News> news = new ArrayList<News>();
+        List<News> news = new ArrayList<>();
 
         try {
             JSONObject baseJsonObject = new JSONObject(jsonResponse);
@@ -111,18 +108,12 @@ public final class QueryUtils {
             for (int i = 0; i < results.length(); i++) {
                 JSONObject currentNews = results.getJSONObject(i);
                 String newsTitle = currentNews.getString("webTitle");
-//                String dateTime = currentNews.getString("webPublicationDate");
+                String dateTime = currentNews.getString("webPublicationDate");
                 String url = currentNews.getString("webUrl");
+                JSONObject fields = currentNews.getJSONObject("fields");
+                String thumbnail = fields.getString("thumbnail");
 
-//                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-//                Date date = null;
-//                try {
-//                    date = dateFormat.parse(dateTime);
-//                } catch (ParseException e) {
-//                    e.printStackTrace();
-//                }
-
-                news.add(new News(newsTitle, url));
+                news.add(new News(newsTitle, url, dateTime, thumbnail));
             }
         } catch (JSONException e) {
             e.printStackTrace();

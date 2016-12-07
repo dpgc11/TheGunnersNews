@@ -3,8 +3,6 @@ package com.example.android.thegunnersnews;
 import android.content.AsyncTaskLoader;
 import android.content.Context;
 
-import java.text.ParseException;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -32,8 +30,7 @@ public class NewsLoader extends AsyncTaskLoader<List<News>> {
         if (url == null)
             return null;
 
-        List<News> news = QueryUtils.extractNews(url);
 
-        return news;
+        return QueryUtils.extractNews(url);
     }
 }

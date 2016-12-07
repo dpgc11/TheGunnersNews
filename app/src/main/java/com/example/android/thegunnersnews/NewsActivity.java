@@ -20,29 +20,36 @@ public class NewsActivity extends AppCompatActivity implements LoaderManager.Loa
 
     private static final String LOG_TAG = NewsActivity.class.getSimpleName();
 
-    private static final String GUARDIAN_REQUEST_URL = "https://content.guardianapis.com/search?q=football/arsenal&api-key=b29db22e-a97f-4c16-abc6-ca85fec2cde0";
-//    private static final String API_KEY = "https://newsapi.org/v1/articles?source=bbc-sport&sortBy=latest&apiKey=fcb8258e278145ed97b20068862e2ae3";
+    private static final String GUARDIAN_REQUEST_URL = "https://content.guardianapis.com/search?q=football/arsenal&section=football&tag=football/arsenal&order-by=newest&show-fields=thumbnail&api-key=b29db22e-a97f-4c16-abc6-ca85fec2cde0";
 
     private NewsAdapter adapter;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.news_activity);
 
+        // Find a reference to the {@link ListView} in the layout
         ListView newsListView = (ListView) findViewById(R.id.list);
 
+        // Create a new {@link ArrayAdapter} of earthquakes
         adapter = new NewsAdapter(this, new ArrayList<News>());
-
+        // Set the adapter on the {@link ListView}
+        // so the list can be populated in the user interface
         newsListView.setAdapter(adapter);
 
         newsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 News currentNews = adapter.getItem(i);
+
                 Uri newsUri = Uri.parse(currentNews.getUrl());
+
                 Intent websiteIntent = new Intent(Intent.ACTION_VIEW, newsUri);
+
                 startActivity(websiteIntent);
+
             }
         });
 
@@ -51,8 +58,9 @@ public class NewsActivity extends AppCompatActivity implements LoaderManager.Loa
         if (networkInfo != null && networkInfo.isConnected()) {
             getLoaderManager().initLoader(1, null, this);
         } else {
-            Toast.makeText(this, "No internet Connection!", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "No internet connection", Toast.LENGTH_LONG).show();
         }
+
     }
 
     @Override
