@@ -27,7 +27,7 @@
             android:padding="16dp"
             tools:fontFamily="sans-serif-medium"
             tools:text="Placeholder news title will  go as far as desired"
-            tools:textColor="@color/colorPrimary"/>
+            tools:textColor="#212121"/>
 
     <TextView
             android:id="@+id/dateId"
@@ -37,7 +37,7 @@
             android:padding="16dp"
             android:textSize="12sp"
             tools:text="2016-09-26"
-            tools:textColor="@android:color/black"
+            tools:textColor="#757575"
             android:layout_height="match_parent"/>
 
 </LinearLayout>
