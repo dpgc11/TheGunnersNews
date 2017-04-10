@@ -7,34 +7,32 @@
         android:id="@+id/swipe_refresh_layout">
 
     <RelativeLayout
-                android:id="@+id/news_activity"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                tools:context="com.example.android.thegunnersnews.NewsActivity">
-
-    <ListView
-            android:id="@+id/list"
+            android:id="@+id/news_activity"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            />
+            tools:context="com.example.android.thegunnersnews.activity.NewsActivity">
 
-    <ProgressBar
-            style="?android:attr/progressBarStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/progressBar"
-            android:layout_centerInParent="true"
-            />
+        <android.support.v7.widget.RecyclerView
+                android:id="@+id/recycler_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                />
 
-    <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-            android:id="@+id/emptyTextView"/>
+        <ProgressBar
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:id="@+id/progress_bar"/>
 
-</RelativeLayout>
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                android:id="@+id/emptyTextView"/>
+
+    </RelativeLayout>
 </android.support.v4.widget.SwipeRefreshLayout>
