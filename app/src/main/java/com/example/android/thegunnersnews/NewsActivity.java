@@ -7,6 +7,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
@@ -25,7 +26,7 @@ public class NewsActivity extends AppCompatActivity implements LoaderManager.Loa
     TextView emptyTextView;
     private NewsAdapter adapter;
     private ProgressBar progressBar;
-
+    private SwipeRefreshLayout swipeRefreshLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,11 +41,15 @@ public class NewsActivity extends AppCompatActivity implements LoaderManager.Loa
         emptyTextView = (TextView) findViewById(R.id.emptyTextView);
         newsListView.setEmptyView(emptyTextView);
 
+        swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_refresh_layout);
+
         // Create a new {@link ArrayAdapter} of earthquakes
         adapter = new NewsAdapter(this, new ArrayList<News>());
         // Set the adapter on the {@link ListView}
         // so the list can be populated in the user interface
         newsListView.setAdapter(adapter);
+
+        performSearch();
 
         newsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -60,6 +65,18 @@ public class NewsActivity extends AppCompatActivity implements LoaderManager.Loa
             }
         });
 
+
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                performSearch();
+                swipeRefreshLayout.setRefreshing(false);
+            }
+        });
+
+    }
+
+    private void performSearch() {
         ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
         NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
         if (networkInfo != null && networkInfo.isConnected()) {
@@ -68,7 +85,6 @@ public class NewsActivity extends AppCompatActivity implements LoaderManager.Loa
             progressBar.setVisibility(View.GONE);
             emptyTextView.setText(R.string.no_internet_connection);
         }
-
     }
 
     @Override
@@ -95,6 +111,5 @@ public class NewsActivity extends AppCompatActivity implements LoaderManager.Loa
     public void onLoaderReset(Loader<List<News>> loader) {
         adapter.clear();
     }
-
 
 }
