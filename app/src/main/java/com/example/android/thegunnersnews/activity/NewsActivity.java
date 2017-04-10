@@ -49,6 +49,7 @@ public class NewsActivity extends AppCompatActivity {
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
+                performSearch();
                 swipeRefreshLayout.setRefreshing(false);
             }
         });
