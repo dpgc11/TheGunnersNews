@@ -5,6 +5,7 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.View;
 import android.widget.ProgressBar;
 
@@ -29,6 +30,7 @@ public class NewsActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private ApiInterface apiService;
     private ProgressBar progressBar;
+    private List<Result> results;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,10 +56,11 @@ public class NewsActivity extends AppCompatActivity {
             }
         });
 
+        setRecyclerViewItemTouchListener();
+
     }
 
     private void performSearch() {
-
 
         Call<News1> call = apiService.getNewsAboutArsenal("football/arsenal", "football", "football/arsenal",
                 "newest", "thumbnail", API_KEY);
@@ -66,7 +69,7 @@ public class NewsActivity extends AppCompatActivity {
             public void onResponse(Call<News1> call, Response<News1> response) {
                 int statusCode = response.code();
                 progressBar.setVisibility(View.INVISIBLE);
-                List<Result> results = response.body().getResponse().getResults();
+                results = response.body().getResponse().getResults();
                 recyclerView.setAdapter(new NewsAdapter(results, R.layout.list_item, getApplicationContext()));
             }
 
@@ -76,6 +79,29 @@ public class NewsActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    private void setRecyclerViewItemTouchListener() {
+
+        //1
+        ItemTouchHelper.SimpleCallback itemTouchCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
+            @Override
+            public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder viewHolder1) {
+                //2
+                return false;
+            }
+
+            @Override
+            public void onSwiped(RecyclerView.ViewHolder viewHolder, int swipeDir) {
+                //3
+                int position = viewHolder.getAdapterPosition();
+                results.remove(position);
+                recyclerView.getAdapter().notifyItemRemoved(position);
+            }
+        };
+
+        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(itemTouchCallback);
+        itemTouchHelper.attachToRecyclerView(recyclerView);
     }
 
 
